@@ -37,7 +37,7 @@ export default function IdeaGarden({ onBack }: IdeaGardenProps) {
         fetchedIdeas.push({ id: doc.id, ...doc.data() } as Idea)
       })
       setIdeas(fetchedIdeas)
-    }, (error) => {
+    }, () => {
       console.log('Firestore demo mode - using local storage')
       // Fallback to localStorage if Firebase not configured
       const localIdeas = localStorage.getItem('garden-ideas')
@@ -83,8 +83,8 @@ export default function IdeaGarden({ onBack }: IdeaGardenProps) {
     if (isFirebaseConfigured) {
       try {
         await addDoc(collection(db, 'ideas'), idea)
-      } catch (error) {
-        console.log('Firebase error, falling back to localStorage:', error)
+      } catch (err) {
+        console.log('Firebase error, falling back to localStorage:', err)
         // Fallback to localStorage
         const localIdea = { ...idea, id: Date.now().toString() }
         const updatedIdeas = [localIdea, ...ideas]
