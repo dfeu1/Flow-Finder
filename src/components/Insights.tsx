@@ -6,9 +6,10 @@ import { saveSession, getSessionHistory } from '../utils/storage'
 interface InsightsProps {
   result: FlowResult
   onRestart: () => void
+  onHome?: () => void
 }
 
-export default function Insights({ result, onRestart }: InsightsProps) {
+export default function Insights({ result, onRestart, onHome }: InsightsProps) {
   const [sessionCount, setSessionCount] = useState(0)
   const zoneColor = getZoneColor(result.zone)
 
@@ -147,6 +148,14 @@ export default function Insights({ result, onRestart }: InsightsProps) {
           >
             View History ({sessionCount})
           </button>
+          {onHome && (
+            <button
+              onClick={onHome}
+              className="flex-1 bg-white/10 hover:bg-white/20 text-white font-bold py-4 px-8 rounded-xl text-lg transition-all border-2 border-white/30"
+            >
+              ← Home
+            </button>
+          )}
         </div>
       </div>
     </div>

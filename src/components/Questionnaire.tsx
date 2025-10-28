@@ -5,9 +5,10 @@ import { calculateFlowResult } from '../utils/flowCalculations'
 
 interface QuestionnaireProps {
   onComplete: (result: FlowResult) => void
+  onBack?: () => void
 }
 
-export default function Questionnaire({ onComplete }: QuestionnaireProps) {
+export default function Questionnaire({ onComplete, onBack }: QuestionnaireProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
   const [responses, setResponses] = useState<QuestionResponse[]>([])
   const [skillValue, setSkillValue] = useState(5)
@@ -34,7 +35,15 @@ export default function Questionnaire({ onComplete }: QuestionnaireProps) {
   }
 
   return (
-    <div className="max-w-3xl mx-auto text-white w-full">
+    <div className="max-w-3xl mx-auto text-white w-full relative">
+      {onBack && currentQuestion === 0 && (
+        <button
+          onClick={onBack}
+          className="absolute -top-16 left-0 bg-white/10 hover:bg-white/20 text-white font-semibold py-2 px-4 rounded-xl transition-all border border-white/30 flex items-center gap-2"
+        >
+          ← Back
+        </button>
+      )}
       <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl">
         {/* Progress bar */}
         <div className="mb-8">
@@ -52,7 +61,10 @@ export default function Questionnaire({ onComplete }: QuestionnaireProps) {
 
         {/* Question */}
         <div className="mb-8">
-          <h2 className="text-3xl font-bold mb-4">{question.scenario}</h2>
+          <h2 className="text-3xl font-bold mb-2">{question.scenario}</h2>
+          {question.description && (
+            <p className="text-gray-300 text-sm italic">{question.description}</p>
+          )}
         </div>
 
         {/* Skill Slider */}

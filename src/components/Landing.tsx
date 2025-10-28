@@ -1,11 +1,20 @@
 interface LandingProps {
   onStart: () => void
+  onBack?: () => void
 }
 
-export default function Landing({ onStart }: LandingProps) {
+export default function Landing({ onStart, onBack }: LandingProps) {
   return (
-    <div className="max-w-2xl mx-auto text-center text-white">
-      <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl">
+    <div className="max-w-2xl mx-auto text-center text-white relative">
+      <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl relative">
+        {onBack && (
+          <button
+            onClick={onBack}
+            className="absolute top-4 left-4 bg-white/10 hover:bg-white/20 text-white font-semibold py-2 px-4 rounded-xl transition-all border border-white/30 flex items-center gap-2 z-10"
+          >
+            ← Home
+          </button>
+        )}
         <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-200 to-purple-200 bg-clip-text text-transparent">
           Flow Finder
         </h1>
@@ -20,7 +29,7 @@ export default function Landing({ onStart }: LandingProps) {
               1
             </div>
             <p className="text-lg text-gray-100">
-              Answer 5 quick questions about your current activities
+              Complete a research-based 8-question assessment
             </p>
           </div>
           

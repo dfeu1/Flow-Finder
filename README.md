@@ -1,17 +1,35 @@
-# Flow Finder 🌊
+# Creative Spaces 🌊🌱
 
-**Discover your perfect balance between skill and challenge**
+**Flow Finder + Idea Garden: A Dual Creative Experience**
 
-Flow Finder is an interactive web application that helps you measure and visualize your flow state based on the psychological concept developed by Mihaly Csikszentmihalyi. By assessing your skill level versus challenge level across different life scenarios, you can identify your current mental state and receive personalized recommendations to achieve optimal flow.
+A creative web application featuring two interactive experiences:
+
+1. **Flow Finder** 🌊 - Discover your perfect balance between skill and challenge. Measure your flow state based on Mihaly Csikszentmihalyi's psychological concept.
+
+2. **Idea Garden** 🌱 - A collaborative space where ideas bloom. Plant your thoughts and watch a living garden of creativity grow with contributions from others.
 
 ## ✨ Features
 
-- **Interactive Questionnaire**: 5 thoughtfully designed questions that assess skill and challenge levels
+### Flow Finder 🌊
+- **Research-Based Assessment**: 8 comprehensive questions based on Csikszentmihalyi's flow theory
+- **8-Channel Model**: Accurately maps you to one of 7 flow zones using the research-validated model
 - **Real-time Visualization**: Beautiful scatter plot showing your position on the skill-challenge spectrum
-- **Personalized Insights**: Get specific recommendations based on your flow zone
+- **Personalized Insights**: Detailed feedback and actionable recommendations based on your flow zone
 - **Session History**: Track your progress over time with localStorage persistence
+- **Flow Zones**: Flow, Arousal, Control, Relaxation, Boredom, Apathy, Anxiety
+
+### Idea Garden 🌱
+- **Collaborative Creation**: Plant ideas that everyone can see and enjoy
+- **Real-time Updates**: Watch ideas bloom instantly across all users
+- **Beautiful Animations**: Floating plants with unique positions and styles
+- **4 Plant Types**: Flowers, trees, sprouts, and mushrooms
+- **Interactive Tooltips**: Hover to read each idea and its author
+- **Firebase Integration**: Real-time database with localStorage fallback
+
+### Shared Features
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 - **Modern UI**: Gradient backgrounds, smooth animations, and glassmorphism effects
+- **Vercel-Ready**: Optimized for one-click deployment
 
 ## 🎯 Flow Zones
 
@@ -90,8 +108,9 @@ This app is optimized for Vercel deployment:
 - **Build Tool**: Vite 5
 - **Styling**: Tailwind CSS 3
 - **Charts**: Chart.js 4 with react-chartjs-2
+- **Database**: Firebase Firestore (with localStorage fallback)
 - **State Management**: React Hooks (useState, useEffect)
-- **Data Persistence**: localStorage API
+- **Real-time**: Firebase onSnapshot listeners
 - **Deployment**: Vercel
 
 ## 📁 Project Structure
