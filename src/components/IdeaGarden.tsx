@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { collection, addDoc, onSnapshot, query, orderBy, limit } from 'firebase/firestore'
-import { db } from '../firebase/config'
+import { supabase } from '../supabase/config'
 import { Idea, PlantType } from '../types/garden'
 
 interface IdeaGardenProps {
@@ -28,26 +27,49 @@ export default function IdeaGarden({ onBack }: IdeaGardenProps) {
   const [showForm, setShowForm] = useState(false)
 
   useEffect(() => {
-    // Listen to Firestore changes in real-time
-    const q = query(collection(db, 'ideas'), orderBy('timestamp', 'desc'), limit(50))
-    
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const fetchedIdeas: Idea[] = []
-      snapshot.forEach((doc) => {
-        fetchedIdeas.push({ id: doc.id, ...doc.data() } as Idea)
-      })
-      setIdeas(fetchedIdeas)
-    }, () => {
-      console.log('Firestore demo mode - using local storage')
-      // Fallback to localStorage if Firebase not configured
+    // Check if Supabase is configured
+    const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && 
+                                   import.meta.env.VITE_SUPABASE_URL !== 'https://demo.supabase.co'
+
+    if (isSupabaseConfigured) {
+      // Fetch initial ideas from Supabase
+      fetchIdeas()
+
+      // Subscribe to real-time changes
+      const channel = supabase
+        .channel('ideas-changes')
+        .on('postgres_changes', 
+          { event: '*', schema: 'public', table: 'ideas' },
+          () => {
+            fetchIdeas() // Refresh when changes occur
+          }
+        )
+        .subscribe()
+
+      return () => {
+        supabase.removeChannel(channel)
+      }
+    } else {
+      // Use localStorage if Supabase not configured
+      console.log('Using localStorage (Supabase not configured)')
       const localIdeas = localStorage.getItem('garden-ideas')
       if (localIdeas) {
         setIdeas(JSON.parse(localIdeas))
       }
-    })
-
-    return () => unsubscribe()
+    }
   }, [])
+
+  const fetchIdeas = async () => {
+    const { data, error } = await supabase
+      .from('ideas')
+      .select('*')
+      .order('timestamp', { ascending: false })
+      .limit(50)
+
+    if (data && !error) {
+      setIdeas(data as Idea[])
+    }
+  }
 
   const getRandomPosition = () => ({
     x: Math.random() * 80 + 10, // 10-90%
@@ -76,15 +98,19 @@ export default function IdeaGarden({ onBack }: IdeaGardenProps) {
       plantType: getRandomPlantType()
     }
 
-    // Check if Firebase is configured (not demo mode)
-    const isFirebaseConfigured = import.meta.env.VITE_FIREBASE_PROJECT_ID && 
-                                   import.meta.env.VITE_FIREBASE_PROJECT_ID !== 'demo-project'
+    // Check if Supabase is configured
+    const isSupabaseConfigured = import.meta.env.VITE_SUPABASE_URL && 
+                                   import.meta.env.VITE_SUPABASE_URL !== 'https://demo.supabase.co'
 
-    if (isFirebaseConfigured) {
+    if (isSupabaseConfigured) {
       try {
-        await addDoc(collection(db, 'ideas'), idea)
+        const { error } = await supabase
+          .from('ideas')
+          .insert([idea])
+
+        if (error) throw error
       } catch (err) {
-        console.log('Firebase error, falling back to localStorage:', err)
+        console.log('Supabase error, falling back to localStorage:', err)
         // Fallback to localStorage
         const localIdea = { ...idea, id: Date.now().toString() }
         const updatedIdeas = [localIdea, ...ideas]
@@ -92,8 +118,8 @@ export default function IdeaGarden({ onBack }: IdeaGardenProps) {
         localStorage.setItem('garden-ideas', JSON.stringify(updatedIdeas))
       }
     } else {
-      // Use localStorage directly (Firebase not configured)
-      console.log('Using localStorage (Firebase not configured)')
+      // Use localStorage directly (Supabase not configured)
+      console.log('Using localStorage (Supabase not configured)')
       const localIdea = { ...idea, id: Date.now().toString() }
       const updatedIdeas = [localIdea, ...ideas]
       setIdeas(updatedIdeas)
