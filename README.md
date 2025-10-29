@@ -1,4 +1,4 @@
-# Creative Spaces 🌊🌱
+# Creative Spaces
 
 **Flow Finder + Idea Garden: A Dual Creative Experience**
 
@@ -24,24 +24,19 @@ A creative web application featuring two interactive experiences:
 - **Beautiful Animations**: Floating plants with unique positions and styles
 - **4 Plant Types**: Flowers, trees, sprouts, and mushrooms
 - **Interactive Tooltips**: Hover to read each idea and its author
-- **Firebase Integration**: Real-time database with localStorage fallback
+- **Supabase Integration**: Real-time database with localStorage fallback
 
-### Shared Features
-- **Responsive Design**: Works seamlessly on desktop and mobile devices
-- **Modern UI**: Gradient backgrounds, smooth animations, and glassmorphism effects
-- **Vercel-Ready**: Optimized for one-click deployment
-
-## 🎯 Flow Zones
+## Flow Zones
 
 The app identifies 7 different psychological states:
 
-- **Flow** 🔥 - Perfect balance, optimal performance
-- **Arousal** ⚡ - Slightly over-challenged, opportunity for growth
-- **Control** 🎯 - In command, could seek more challenge
-- **Relaxation** 😌 - Low pressure, comfortable state
-- **Boredom** 😴 - Under-challenged, need stimulation
-- **Apathy** 💤 - Low engagement overall
-- **Anxiety** 😰 - Over-challenged, need skill development
+- **Flow**  - Perfect balance, optimal performance
+- **Arousal** - Slightly over-challenged, opportunity for growth
+- **Control**  - In command, could seek more challenge
+- **Relaxation**  - Low pressure, comfortable state
+- **Boredom**  - Under-challenged, need stimulation
+- **Apathy**  - Low engagement overall
+- **Anxiety**  - Over-challenged, need skill development
 
 ## 🚀 Getting Started
 
@@ -79,30 +74,7 @@ The build output will be in the `dist/` directory.
 npm run preview
 ```
 
-## 🌐 Deploy to Vercel
-
-This app is optimized for Vercel deployment:
-
-1. **Install Vercel CLI** (optional):
-   ```bash
-   npm install -g vercel
-   ```
-
-2. **Deploy:**
-   - Push your code to GitHub
-   - Import your repository in [Vercel Dashboard](https://vercel.com)
-   - Vercel will automatically detect the Vite configuration
-   - Click "Deploy"
-
-   Or use the CLI:
-   ```bash
-   vercel
-   ```
-
-3. **Configuration:**
-   The `vercel.json` file is already configured for SPA routing.
-
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Framework**: React 18 with TypeScript
 - **Build Tool**: Vite 5
@@ -113,7 +85,7 @@ This app is optimized for Vercel deployment:
 - **Real-time**: Firebase onSnapshot listeners
 - **Deployment**: Vercel
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 flow-finder/
@@ -138,22 +110,7 @@ flow-finder/
 └── package.json             # Dependencies
 ```
 
-## 🎨 Customization Ideas
-
-This is a foundation you can build upon! Here are some creative extensions:
-
-- **History Dashboard**: Create a timeline view of all sessions
-- **Progress Charts**: Line graphs showing flow score trends over time
-- **Custom Questions**: Let users create their own assessment scenarios
-- **Sharing**: Generate shareable cards with results
-- **Dark/Light Mode**: Toggle between themes
-- **Export Data**: Download session history as JSON/CSV
-- **Gamification**: Badges for achieving flow states
-- **Multi-language**: i18n support
-- **Sound Effects**: Audio feedback for different zones
-- **Animations**: More elaborate transitions using Framer Motion
-
-## 🧠 The Science Behind Flow
+## The Science Behind Flow
 
 Flow state, discovered by psychologist Mihaly Csikszentmihalyi, occurs when:
 - Your skills match the challenge level
